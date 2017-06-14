@@ -1,0 +1,14 @@
+{
+  "name": "proto-example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "setup": "./setup.sh",
+    "build": "./build.sh"
+  },
+  "license": "none",
+  "dependencies": {},
+  "devDependencies": {
+    "ts-protoc-gen": "^0.2.2"
+  }
+}
