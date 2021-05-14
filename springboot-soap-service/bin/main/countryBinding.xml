@@ -1,0 +1,16 @@
+<jaxb:bindings
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" version="2.1">
+    <jaxb:globalBindings localScoping="toplevel"/>
+
+    <!-- <jaxb:bindings schemaLocation="ServiceOrder.xsd"> -->
+        <!-- <jaxb:bindings node="//xsd:element[@name='resourceCharacteristics']/xsd:complexType/xsd:sequence/xsd:element[@name='characteristics']/xsd:complexType">
+            <jaxb:class name="ResourceCharacteristicsSeq"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xsd:element[@name='service']/xsd:complexType/xsd:sequence/xsd:element[@name='features']/xsd:complexType">
+            <jaxb:class name="ServiceFeatures"/>
+        </jaxb:bindings> -->
+    <!-- </jaxb:bindings> -->
+</jaxb:bindings>
+

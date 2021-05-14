@@ -1,0 +1,7 @@
+{
+  "extends": "../tsconfig-node-lib",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "../dist/src"
+  }
+}

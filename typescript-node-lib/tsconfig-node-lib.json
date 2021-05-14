@@ -1,0 +1,112 @@
+{
+  "compilerOptions": {
+    // composite is a new setting which allows typescript projects to be structured more effectively
+    // when used in conjunction with project references
+    // see : https://www.typescriptlang.org/docs/handbook/project-references.html
+    "composite": true,
+    // composite defaults tsconfig.json location as root
+    // "rootDir": ".",
+
+    /************************* CORE COMPILER SETTINGS *******************************************/
+    // See Node v14.0.0: https://stackoverflow.com/questions/61305578/what-typescript-configuration-produces-output-closest-to-node-js-14-capabilities/61305579#61305579
+    // See Node v16.0.0: https://stackoverflow.com/questions/67371787/what-typescript-configuration-produces-output-closest-to-node-js-16-capabilities/67371788#67371788
+    // This section is written for Node v14.0.0
+
+    // allow functions & properties of ES2020
+    "lib": ["ES2020"],
+    // use commonjs modules - not using ES2020
+    "module": "commonjs",
+    // The following defaults to node anyway, in most circumstances except if module type is AMD/UMD/ES6
+    //"moduleResolution": "node",
+
+    // What javascript language feature level should the output be in?
+    "target": "ES2020",
+
+    /*
+      Note: target / lib can differ is typescript is because polyfills in the target environment
+      can result in a some functions / properties being available
+      Providing polyfills is your responsibility
+    */
+
+    // https://www.typescriptlang.org/tsconfig#esModuleInterop
+    "esModuleInterop": true,
+
+    // allow writing 'import React from "react"'' even for modules with no default export, like Babel
+    // "allowSyntheticDefaultImports": true
+
+    // Useful for node projects
+    "resolveJsonModule": true /* Include modules imported with '.json' extension */,
+
+    /************************* TYPE RESOLUTION *******************************************/
+
+    // types restricts types included in compilation to just the types listed in "types"
+    // if types is not set, Typescript includes all @types under node_modules of current and parent directories
+    // For e.g the following entry only uses ./node_modules/@types/node
+    // "types": ["node"],
+
+    // typeRoots will include all types from the locations listed
+    // "typeRoots": ["./typings", "./vendor/types"]
+
+    /****************************** SOURCE SETTINGS *******************************************/
+    // One setting for all the ones below it
+    "strict": true,
+    // "alwaysStrict": true,
+    // "noImplicitAny": true,
+    // "noImplicitReturns": true,
+    // "strictBindCallApply": true,
+    // "strictNullChecks": true,
+    // "strictFunctionTypes": true,
+    // "strictPropertyInitialization": true,
+
+    // experimental support for decorators - https://github.com/tc39/proposal-decorators
+    "experimentalDecorators": true,
+
+    // error on fall through cases in switch : https://www.typescriptlang.org/tsconfig#noFallthroughCasesInSwitch
+    "noFallthroughCasesInSwitch": true,
+
+    // noImplicitThis : https://www.typescriptlang.org/tsconfig#noImplicitThis
+    "noImplicitThis": true,
+
+    // noUnusedLocals - https://www.typescriptlang.org/tsconfig#noUnusedLocals
+    "noUnusedLocals": false,
+
+    // noUnused Parameters - https://www.typescriptlang.org/tsconfig#noUnusedParameters
+    "noUnusedParameters": true,
+
+    // https://www.typescriptlang.org/tsconfig#forceConsistentCasingInFileNames
+    "forceConsistentCasingInFileNames": true,
+
+    // decomment to allow js files to be imported
+    // "allowJs": true
+    // "checkJs": true
+
+    /************************* COMPILER OUTPUT SETTINGS *******************************************/
+    // impacts for/of and array spread behaviour when transpiling to ES5 - https://www.typescriptlang.org/tsconfig#downlevelIteration
+    "downlevelIteration": true,
+
+    // do not emit sourcemaps etc if there is an error - https://www.typescriptlang.org/tsconfig#noEmitOnError
+    "noEmitOnError": true,
+
+    // do not truncate errors - https://www.typescriptlang.org/tsconfig#noErrorTruncation
+    "noErrorTruncation": true,
+
+    // https://www.typescriptlang.org/tsconfig#preserveConstEnums
+    // "preserveConstEnums": true,
+
+    // "removeComments": true,
+
+    // Uncomment this if compiles are taking too long
+    // "skipLibCheck": true,
+
+    // "suppressExcessPropertyErrors": true,
+    // "suppressImplicitAnyIndexErrors": true,
+    // "declaration": true,
+    // "declarationMap": true,
+    "newLine": "lf",
+    "pretty": true,
+
+    // Note: declaration is anyway true when composite is true
+    "declaration": true,
+    "sourceMap": true
+  }
+}

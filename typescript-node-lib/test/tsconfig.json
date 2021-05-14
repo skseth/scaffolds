@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig-node-lib.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "../dist/test"
+  },
+  "references": [
+    {
+      "path": "../src"
+    }
+  ]
+}

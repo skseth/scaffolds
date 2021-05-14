@@ -1,0 +1,21 @@
+ignore = [
+    "scaffold.toml",
+    "scaffold/"
+]
+
+[[process]]
+name = "clike"
+comment = "//"
+include = [
+    "*.ts",
+    "*.js",
+    "tsconfig*.json"
+]
+
+[[process]]
+name = "shelllike"
+comment = "##"
+include = [
+    ".*ignore"
+]
+
