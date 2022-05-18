@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES5", // javascript target
+    "module": "ESNext", // type of module generated
+    "moduleResolution": "node",
+    "lib": ["DOM", "ESNext"], // libraries provided by environment
+    "jsx": "react-jsx",
+    "noEmit": true, // because we are using babel
+    "isolatedModules": true, // each file as a module
+    "strict": true, // all strict type checking
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+    // "allowJs": true,
+    // "checkJs" : true,
+  },
+  "include": ["src/**/*"]
+}

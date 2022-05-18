@@ -1,0 +1,13 @@
+ignore = [
+    "scaffold/",
+    "scaffold.toml"
+]
+
+[[process]]
+name = "clike"
+comment = "//"
+include = [
+    "*.java",
+    "*.gradle"
+]
+
