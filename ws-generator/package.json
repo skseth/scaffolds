@@ -1,0 +1,41 @@
+{
+    "name": "generator-type-script",
+    "type": "module",
+    "version": "0.1.0",
+    "description": "",
+    "scripts": {
+        "start": "nodemon --debug --watch src -e '*' -x npm -- run build-dev",
+        "build-dev": "tsc && npm run copy-files",
+        "copy-files": "find src/generators -mindepth 2 -maxdepth 2 -type d -name templates | sed -e 's,^src/generators/,,' | xargs -I {} cp -r src/generators/{}/. dist/generators/{}",
+        "build": "npm run clean && npm run build-dev",
+        "clean": "rm -rf ./generators"
+    },
+    "files": [
+        "dist/generators"
+    ],
+    "keywords": [
+        "yeoman-generator"
+    ],
+    "dependencies": {
+        "@types/node": "^18.0.0",
+        "@types/yeoman-generator": "^5.2.10",
+        "immutability-helper": "^3.1.1",
+        "mrm-core": "^7.0.0",
+        "node-fetch": "^3.2.6",
+        "nodemon": "^2.0.16",
+        "ts-node": "^10.8.1",
+        "tsconfig-paths": "^4.0.0",
+        "webpack-merge": "^5.8.0",
+        "yeoman-generator": "^5.6.1"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.29.0",
+        "@typescript-eslint/parser": "^5.29.0",
+        "eslint": "^8.18.0",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-n": "^15.2.3",       
+        "eslint-plugin-promise": "^6.0.0",
+        "eslint-plugin-react": "^7.30.0",
+        "typescript": "^4.7.4"
+    }
+}

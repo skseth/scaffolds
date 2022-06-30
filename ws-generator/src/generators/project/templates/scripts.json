@@ -1,0 +1,7 @@
+{
+    "start": "nodemon --watch src -e '*' -x npm -- run build-dev",
+    "build-dev": "cd src && tsc",
+    "test": "echo 'need to write tests!'",
+    "build": "npm run clean && npm run build-dev",
+    "clean": "rm -rf ./dist"
+}

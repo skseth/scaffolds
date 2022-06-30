@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+      "strict": true,
+  
+      /* module esnext implies generated code has esm module support */
+      "module": "esnext",
+  
+      /* 
+          nodenext uses the package.json exports field for resoving exports
+          it seems that nodenext also influences baseUrl / path based resolution
+          but this is not clear.
+      */
+      "moduleResolution": "nodenext",
+  
+      /* 
+          https://www.typescriptlang.org/tsconfig#isolatedModules 
+          use type only annotations to allow single file transpilers which imports can be dropped
+          all files must be modules - you cannot have global script files
+      */
+      "isolatedModules": true,
+  
+      /* 
+          https://www.typescriptlang.org/tsconfig#isolatedModules 
+          use type only annotations to allow single file transpilers which imports can be dropped
+          all files must be modules - you cannot have global script files
+      */
+      "esModuleInterop": true,
+  
+      "target": "ES2017",
+      "outDir": "dist",
+      "lib": ["ES2015"],
+      "types": [],
+      "noEmitOnError": true
+    },
+    "include": ["src/**/*"]
+  }

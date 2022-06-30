@@ -1,0 +1,72 @@
+{
+  /* 
+    included for ALL projects in the workspace 
+    <%
+      if (typeof tsTarget === 'undefined') {
+        var tsTarget = 'ES2020'
+      }
+
+      if (typeof projectModule === 'undefined') {
+        var projectModule = 'esnext'
+      }
+
+      if (typeof projectModuleResolution === 'undefined') {
+        var projectModule = 'nodenext'  
+      }
+
+    -%>    
+  */
+
+
+  /* include / exclude is specified at PROJECT level only */  
+  "include": [],
+  "compilerOptions": {
+
+    "target": "<%- tsTarget %>",
+
+    /* include lib / type definitions based on project type e.g. react, services, and so on */
+    "lib": [],
+    "types": [],
+  
+    /* Keep the following compiler options the same for all projects */
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+
+    "strict": true,
+
+    /* module esnext implies generated code has esm module support */
+    "module": "<%- projectModule %>",
+
+    /* 
+        nodenext uses the package.json exports field for resoving exports
+        it seems that nodenext also influences baseUrl / path based resolution
+        but this is not clear.
+    */
+    "moduleResolution": "<%- projectModuleResolution %>",
+
+    /* 
+        https://www.typescriptlang.org/tsconfig#isolatedModules 
+        use type only annotations to allow single file transpilers which imports can be dropped
+        all files must be modules - you cannot have global script files
+    */
+    "isolatedModules": true,
+
+    /* 
+        https://www.typescriptlang.org/tsconfig#isolatedModules 
+        use type only annotations to allow single file transpilers which imports can be dropped
+        all files must be modules - you cannot have global script files
+    */
+    "esModuleInterop": true,
+
+    "sourceMap": true
+  },
+
+  /* TBD: Need to check impact */
+  "typeAcquisition": {
+    "enable": false
+  }
+}
+
+
+

@@ -1,0 +1,27 @@
+{
+  /******
+    Config file for editors. All sources, including tests included, no references.
+    <%_
+      if (typeof isWorkspace === 'undefined') {
+        var isWorkspace = false
+      }
+
+      if (typeof projectType === 'undefined') {
+        var projectType = 'generic'
+      }
+
+      if (typeof relRootPath === 'undefined') {
+        if (isWorkspace) {
+          var relRootPath = '../..'
+        } else {
+          var relRootPath = '..'
+        }
+      }
+    _%>
+  ******/
+  "extends": "<%- relRootPath %>/build/tsconfig.<%- projectType %>.json",
+
+  /* Note: this includes .ts, .tsx, .d.ts files. If allowJs is set, it includes .js, and .jsx */
+  "include": ["src/**/*"]
+
+}

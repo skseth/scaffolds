@@ -1,0 +1,30 @@
+### Temporary files
+node_modules/
+*.log
+tsconfig.tsbuildinfo
+
+### Output directories
+dist/
+
+### OS Files
+.DS_Store
+Thumbs.db
+
+### VisualStudioCode ###
+.vscode/**/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+**/.history
+
+### Other editors ###
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# my special item
+special/

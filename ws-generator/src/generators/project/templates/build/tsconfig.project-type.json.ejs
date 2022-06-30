@@ -1,0 +1,47 @@
+{
+  /* 
+    <%_
+      const languageLib = "ES2020"
+
+      const libMap = {
+        generic: [languageLib, "DOM", "DOM.Iterable"],
+        service: [languageLib],
+        web : [languageLib, "DOM", "DOM.Iterable"],
+        react: [languageLib, "DOM"],
+        webworker: [languageLib, "WebWorker"],
+        crxBackground: [languageLib, "DOM"], // technically, should not need DOM
+        crxContent: [languageLib, "DOM", "DOM.Iterable"],
+        crxPage: [languageLib, "DOM", "DOM.Iterable"],
+        crxPopup: [languageLib, "DOM", "DOM.Iterable"],
+      }
+      
+      const typesMap = {
+        generic: [],
+        service: ["node"],
+        web: [],
+        react: ["react", "react-dom"],
+        webworker: [],
+        crxBackground: ["chrome"],
+        crxContent: ["chrome"],
+        crxPage: [],
+        crxPopup: ["chrome"],
+      }
+
+      var projectTypeLocal = typeof projectType === 'undefined'? projectTypeLocal : projectType
+
+      const libVal = libMap.hasOwnProperty(projectTypeLocal)? libMap[projectTypeLocal]: libMap["generic"]
+      const typesVal = typesMap.hasOwnProperty(projectTypeLocal)? typesMap[projectTypeLocal]: typesMap["generic"]
+
+      var lib = JSON.stringify(libVal)
+      var types = JSON.stringify(typesVal)
+
+    _%>
+    TSConfig for project type <%- projectTypeLocal %>
+  */  
+  "extends": "./tsconfig.common.json",
+  "compilerOptions": {
+    "lib": <%- lib %>,
+    "types": <%- types %>
+  }
+}
+  

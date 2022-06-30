@@ -1,0 +1,46 @@
+{
+  "root": <%- isWorkspaceRoot %>,
+  <% if (typescriptEnabled) { %>
+  "parser": "@typescript-eslint/parser"
+  "parserOptions": {
+    <% if (reactEnabled) { %>}
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    <% } %>
+    ecmaVersion: 'latest',
+    project: ["./**/tsconfig.json"],
+    projectFolderIgnoreList: ["**/node_modules/**"];
+  },
+  <% } %>
+  "extends": [
+    "eslint:recommended", 
+    <% if (typescriptEnabled) { %>}
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    <% } %>
+    <% if (prettierEnabled) { %>}
+    "prettier",
+    "plugin:prettier/recommended"
+    <% } %>
+    <% if (reactEnabled) { %>}
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    <% } %>
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    <% if (typescriptEnabled) { %>}
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error", // or error
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ]
+    <% } %>
+  }
+}
