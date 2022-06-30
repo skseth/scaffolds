@@ -1,0 +1,6 @@
+---
+- name: start kibana - start
+  service:
+    name: kibana
+    state: started
+  listen: 'start kibana'

@@ -1,0 +1,31 @@
+
+- import_role: 
+    name: rpminstall
+  vars:
+    package_name: kibana
+    package_version: kibana_version
+    package_rpmfile: "kibana-{{ kibana_version }}-x86_64.rpm"
+    package_forceinstall: kibana_forceinstall
+
+# Add group
+- name: Add kibana group
+  group:
+    name: "kibana"
+    state: present
+
+# Add user
+- name: Add kibana user
+  user:
+    name: "kibana"
+    comment: "kibana user"
+    group: "kibana"
+    system: true
+
+- name: copy kibana config file
+  template:
+    src: kibana.yml
+    dest: /etc/kibana/kibana.yml
+    owner: "kibana"
+    group: "kibana"
+  notify: start kibana
+

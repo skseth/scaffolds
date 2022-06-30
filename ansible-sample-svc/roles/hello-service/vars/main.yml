@@ -1,0 +1,37 @@
+# Anything defined here should have (almost) the highest precedence, and is not expected to be overidden
+# See https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
+
+# Names
+hello_description: "Hello Service"
+hello_service_name: "hello"
+
+### Users / Groups
+hello_user: "{{ hello_service_name }}app"
+hello_group: "{{ hello_service_name }}app"
+
+### Package
+hello_package_name: "{{ hello_service_name }}-service"
+hello_version_full: "{{ hello_version }}-{{ hello_build_number }}"
+hello_package_file: "{{ hello_package_name }}-{{ hello_version_full }}.x86_64.rpm"
+hello_package_file_temp: "/tmp/{{ hello_package_file }}"
+
+### Installation directory
+hello_install_dir: /opt/{{ hello_package_name }}
+hello_executable: "{{ hello_install_dir }}/{{ hello_package_name }}"
+
+### Configuration files
+hello_config_dir: "/etc/{{ hello_package_name }}"
+hello_config_file: "{{ hello_config_dir }}/{{ hello_package_name }}.json"
+hello_config_file_template: "{{ hello_package_name }}.json.j2"
+
+### Log settings
+hello_log_dir: /var/log/{{ hello_package_name }}
+
+### Service settings
+hello_sysconfig_file: "/etc/sysconfig/{{ hello_service_name }}"
+hello_sysconfig_file_template: "{{ hello_service_name }}.sysconfig.j2"
+hello_service_unit_file: "/usr/lib/systemd/system/{{ hello_service_name}}.service"
+hello_service_unit_file_template: "{{ hello_service_name}}.service.j2"
+hello_service_default_port: 8001
+
+

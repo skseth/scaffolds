@@ -1,0 +1,45 @@
+---
+- name: stop {{ svc_name }} service if running
+  service:
+    name: "{{ svc_name }}"
+    state: stopped
+  failed_when: no 
+
+- name: stop {{ svc_name }} service if running
+  service:
+    name: "{{ svc_name }}"
+    enabled: no
+  failed_when: no
+
+- name: remove {{ svc_environmentfile_path }} environment file
+  file:
+    state: absent
+    path: "{{ svc_environmentfile_path }}"
+
+- name: remove {{ svc_name }} systemd unit configuration
+  file:
+    state: absent
+    path: "{{ svc_servicefile_path }}"
+
+- name: does {{ svc_bin_path }} exist?
+  stat:
+    path: "{{ svc_bin_path }}"
+  register: svc_bin_stat
+
+- name: delete {{ svc_bin_path_bkp }} if we need to backup
+  file:
+    state: absent
+    path: "{{ svc_bin_path_bkp }}"
+  when: svc_bin_stat.stat.exists
+
+- name: backup {{ svc_bin_path }}
+  command: mv "{{ svc_bin_path }}" "{{ svc_bin_path_bkp }}"
+  when: svc_bin_stat.stat.exists
+
+- name: remove {{ svc_bin_path }}  
+  file:
+    state: absent
+    path: "{{ svc_bin_path }}"
+
+# Do not delete data folder, and service user / group 
+

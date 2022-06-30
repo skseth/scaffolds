@@ -1,0 +1,20 @@
+---
+# File: user_group.yml - User and group settings
+
+# Add group
+- name: Add {{ svc_name }} group
+  group:
+    name: "{{ svc_group }}"
+    state: present
+  when:
+    - svc_manage_group | bool
+
+# Add user
+- name: Add {{ svc_name }} user
+  user:
+    name: "{{ svc_user }}"
+    comment: "{{ svc_name }} user"
+    group: "{{ svc_group }}"
+    system: true
+  when:
+  - svc_manage_user | bool

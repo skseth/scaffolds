@@ -1,0 +1,23 @@
+---
+# File: dirs.yml - Consul directories
+
+- name: create / verify {{ svc_user }} only directories
+  file:
+    dest: "{{ item }}"
+    state: directory
+    owner: "{{ svc_user }}"
+    group: "{{ svc_group}}"
+    mode: 0700
+  with_items:
+    - "{{ svc_data_path }}"
+
+- name: create / verify {{ svc_user }} bin and log directories
+  file:
+    dest: "{{ item }}"
+    state: directory
+    owner: "{{ svc_user }}"
+    group: "{{ svc_group}}"
+    mode: 0755
+  with_items:
+    - "{{ svc_bin_path }}"
+    - "{{ svc_log_path }}"

@@ -1,0 +1,34 @@
+
+---
+- name: Install java-11-openjdk if not installed
+  yum:
+    name: java-11-openjdk 
+    state: present
+
+- import_role: 
+    name: rpminstall
+  vars:
+    package_name: elasticsearch
+    package_version: elasticsearch_version
+    package_rpmfile: "elasticsearch-{{ elasticsearch_version }}.rpm"
+    package_forceinstall: elasticsearch_forceinstall
+
+- name: copy elasticsearch config file
+  template:
+    src: elasticsearch.yml
+    dest: /etc/elasticsearch/elasticsearch.yml
+
+- name: copy elasticsearch sysconfig file
+  template:
+    src: elasticsearch
+    dest: /etc/sysconfig/elasticsearch
+
+- name: copy elasticsearch systemd unit file
+  template:
+    src: elasticsearch.service
+    dest: /usr/lib/systemd/system/elasticsearch.service
+
+- name: daemon reload systemd on installation
+  command: systemctl daemon-reload
+  become: true
+  notify: start elasticsearch

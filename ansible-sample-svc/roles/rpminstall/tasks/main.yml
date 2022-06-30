@@ -1,0 +1,31 @@
+
+
+- name: uninstall {{ package_name }} if different version
+  package:
+    name={{ package_name }}
+    state=absent      
+  when: (ansible_facts.packages | selectattr(package_name, 'defined') | list | length > 0) and (ansible_facts.packages[package_name][0].version != package_version or package_forceinstall)
+
+- name: Check if package {{ package_name }} needs installation
+  shell: echo "true"
+  when:  (ansible_facts.packages | selectattr(package_name, 'undefined') | list | length > 0) or ansible_facts.packages[package_name][0].version != package_version or package_forceinstall
+  register: rpm_install
+
+- name: Copy {{ package_rpmfile }} rpm to server
+  copy:
+    src: "{{ package_rpmfile }}"
+    dest: /tmp/{{ package_rpmfile }}
+    checksum:
+  when: rpm_install.changed
+
+- name: Install {{ package_name }}
+  yum:
+    name: /tmp/{{ package_rpmfile }} 
+    state: present
+  when: rpm_install.changed
+
+- name: Remove {{ package_rpmfile }} rpmfile
+  file:
+    state: absent
+    path: "/tmp/{{ package_name }}"
+

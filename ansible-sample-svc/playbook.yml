@@ -1,0 +1,30 @@
+---
+- hosts: centos-1
+  become: true
+  vars_files:
+    - "{{ protected_storage }}/vault.yml"
+  
+  pre_tasks:
+  - name: get package facts
+    package_facts:
+      manager: "auto"
+  - name: Display all variables/facts known for a host
+    debug:
+      var: mysql_password
+      verbosity: 1
+
+- hosts: lb
+  vars_files:
+    - "{{ protected_storage }}/vault.yml"
+  become: true
+  roles:
+    - nginx
+
+- hosts: centos-1
+  vars_files:
+    - "{{ protected_storage }}/vault.yml"
+  become: true
+  roles:
+    - hello-service
+
+

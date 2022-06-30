@@ -1,0 +1,69 @@
+---
+### Package
+- name: Disable and stop {{ hello_service_name }} service 
+  systemd:
+    name: "{{ hello_service_name }}"
+    daemon_reload: yes
+    enabled: no
+    state: stopped
+  when: packages[hello_package_name] is defined
+
+- name: Uninstall {{ hello_package_name }} if installed
+  package:
+    name={{ hello_package_name }}
+    state=absent      
+  when: packages[hello_package_name] is defined
+
+### Installation directory
+- name: Delete {{ hello_install_dir }}
+  file:
+    path: "{{ hello_install_dir }}"
+    state: absent
+  when: (clean_install_dir is defined) and clean_install_dir
+
+### Configuration files
+- name: Delete {{ hello_config_dir }}
+  file:
+    path: "{{ hello_config_dir }}"
+    state: absent
+  when: (clean_config_dir is defined) and clean_config_dir
+
+### Log settings
+- name: Delete {{ hello_log_dir }}
+  file:
+    path: "{{ hello_log_dir }}"
+    state: absent
+  when: (clean_log_dir is defined) and clean_log_dir
+
+### Service settings
+- name: Delete service related files
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ hello_sysconfig_file }}"
+    - "{{ hello_service_unit_file }}"
+  when: (clean_service_files is defined) and clean_service_files
+
+- name: Close firewall port
+  firewalld: 
+    port: "{{ hello_service_port }}/tcp"
+    zone: public 
+    permanent: true 
+    state: disabled 
+    immediate: yes
+  when: (clean_firewall_rules is defined) and clean_firewall_rules
+
+### Users / Groups
+- name: Delete user {{ hello_user }}
+  user:
+      name: "{{ hello_user }}"
+      state: absent
+  when: (clean_users_groups is defined) and clean_users_groups
+
+- name: Delete group {{ hello_group }}
+  group:
+      name: "{{ hello_group }}"
+      state: absent
+  when: (clean_users_groups is defined) and clean_users_groups
+

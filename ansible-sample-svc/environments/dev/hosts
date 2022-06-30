@@ -1,0 +1,15 @@
+[hello]
+centos-1
+
+[elasticsearch]
+centos-1 elasticsearch_role=masterdata elasticsearch_nodename=elsnode01
+centos-2 elasticsearch_role=masterdata elasticsearch_nodename=elsnode02
+centos-3 elasticsearch_role=coordinator elasticsearch_nodename=elsnode03
+
+[kibana]
+centos-3
+
+[lb]
+centos-1
+
+

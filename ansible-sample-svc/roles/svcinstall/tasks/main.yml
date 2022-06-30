@@ -1,0 +1,25 @@
+
+- name: get svc version
+  slurp:
+    src: "{{ svc_versionfile_path }}"
+  register: svc_current_version
+  failed_when: no
+
+- name: service version
+  set_fact:
+    "{{ svc_installed_version_factkey }}" : "{{ svc_current_version.content | default('') | b64decode }}"
+
+- debug:
+    msg: "Service {{ svc_name }} has version {{ hostvars[inventory_hostname][svc_installed_version_factkey] }}. Should be version {{ svc_version }}" 
+  when: 
+    - hostvars[inventory_hostname][svc_installed_version_factkey] != svc_version
+
+- name: install service {{ svc_name }}
+  include_tasks: install.yml
+  when: 
+    - hostvars[inventory_hostname][svc_installed_version_factkey] != svc_version
+
+- name: start {{ svc_name }} service if not running
+  service:
+    name: "{{ svc_name }}"
+    state: started

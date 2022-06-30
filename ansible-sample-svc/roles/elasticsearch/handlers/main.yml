@@ -1,0 +1,6 @@
+---
+- name: start elasticsearch - start
+  service:
+    name: elasticsearch
+    state: started
+  listen: 'start elasticsearch'

@@ -1,0 +1,7 @@
+- type: log
+  enabled: true
+  paths:
+    - {{ hello_log_dir }}/*.log
+  json.keys_under_root: true
+  json.add_error_key: true
+  scan_frequency: 10s

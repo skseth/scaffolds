@@ -1,0 +1,6 @@
+---
+- name: start filebeat
+  service:
+    name: filebeat
+    state: started
+  listen: 'start filebeat'

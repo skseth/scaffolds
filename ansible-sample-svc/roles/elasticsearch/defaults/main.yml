@@ -1,0 +1,5 @@
+elasticsearch_forceinstall: false
+# TODO : memlock true needs further testing
+elasticsearch_mem_lock: false
+elasticsearch_hostip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+elasticsearch_port: '9200'

@@ -1,0 +1,19 @@
+[Unit]
+Description=Hello Service
+After=syslog.target network.target
+
+[Service]
+User=helloapp
+Type=simple
+EnvironmentFile=/etc/sysconfig/hello
+WorkingDirectory=/opt/hello-service
+ExecStart=/opt/hello-service/hello-service
+Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=hello-service
+SyslogLevel=debug
+
+[Install]
+WantedBy=multi-user.target
+

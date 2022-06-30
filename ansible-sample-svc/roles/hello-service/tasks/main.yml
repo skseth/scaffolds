@@ -1,0 +1,25 @@
+
+# Check if package is installed, with correct version
+
+- name: show hello package status
+  debug:
+    var: packages["{{ hello_package_name }}"]
+    verbosity: 1
+
+- name: show hello variables
+  debug:
+    msg: 
+      - Force Install: "{{ hello_force_install }}"
+      - Version: "{{ hello_version }}"
+      - Build Number: "{{ hello_build_number }}"
+    verbosity: 1
+
+- name: install {{ hello_package_name }}
+  include_tasks: install.yml
+  when: (packages[hello_package_name] is not defined) or 
+        (packages[hello_package_name][0].version != hello_version) or
+        (packages[hello_package_name][0].release != hello_build_number) or
+        hello_force_install
+
+
+

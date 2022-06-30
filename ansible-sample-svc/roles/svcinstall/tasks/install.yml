@@ -1,0 +1,40 @@
+
+
+- name: uninstall {{ svc_name }}
+  include_tasks: uninstall.yml
+
+- name: create user / group for {{ svc_name }}
+  include_tasks: user_group.yml
+
+- name: create directories for {{ svc_name }}
+  include_tasks: dirs.yml
+
+# TODO : Change to unarchive
+- name: copy {{ svc_name }} executable
+  copy:
+    src: "{{ svc_binary_name }}" 
+    dest: "{{ svc_binary_path }}"
+    mode: u=rwx,g=r,o=r
+
+- name: copy {{ svc_environmentfile_name }}
+  template:
+    src: "{{ svc_environmentfile_template }}"
+    dest: "{{ svc_environmentfile_path }}"
+
+- name: copy {{ svc_name }} systemd unit configuration
+  template:
+    src: "{{ svc_servicefile_template }}"
+    dest: "{{ svc_servicefile_path }}"
+
+- name: setup {{ svc_name }} filebeat logs
+  template:
+    src: "{{ svc_filebeatinput_name }}"
+    dest: "{{svc_filebeatinput_path }}"
+  
+
+- name: create version file
+  copy:
+    dest: "{{ svc_versionfile_path }}"
+    content: "{{ svc_version }}" 
+    owner: "{{ svc_user }}" 
+    group: "{{ svc_group }}"

@@ -1,0 +1,48 @@
+---
+# File: main.yml - Default variables for Consul
+
+###
+svc_installed_version_factkey : "{{ svc_name }}_installed_version"
+
+### Users and groups
+svc_manage_user: true
+svc_user: "{{ svc_name }}"
+svc_manage_group: true
+svc_group: "{{ svc_name }}"
+
+### Paths
+svc_bin_path: "/opt/{{ svc_name }}"
+svc_bin_path_bkp: "{{ svc_bin_path }}-bkp"
+svc_data_path: "/var/{{ svc_name }}"
+svc_log_path: "/var/log/{{ svc_name }}"
+
+### Files
+svc_binary_name: "\
+{% if svc_version is defined %}\
+{{ svc_name }}-{{ svc_version }}\
+{% else %}\
+{{ svc_name }}\
+{% endif %}"
+svc_binary_path: "{{ svc_bin_path }}/{{ svc_binary_name }}"
+
+svc_versionfile_path: "{{ svc_bin_path }}/.{{ svc_name }}_version"
+svc_environmentfile_name: "{{ svc_name }}-environment"
+svc_environmentfile_template: "{{ svc_environmentfile_name }}.j2"
+svc_environmentfile_path: "{{ svc_bin_path }}/{{ svc_environmentfile_name }}"
+
+svc_filebeatinput_name: "{{ svc_name }}.filebeatinput.yml"
+svc_filebeatinput_path: "{{ filebeat_config_inputs_path }}/{{ svc_filebeatinput_name }}"
+
+svc_servicefile_name: "{{ svc_name }}.service"
+svc_servicefile_template: "{{ svc_servicefile_name }}.j2"
+svc_servicefile_path: "/etc/systemd/system/{{ svc_servicefile_name }}"
+
+svc_architecture: "amd64"
+svc_os: "linux"
+svg_pkg_name: "{{ svc_name }}_{{ svc_version }}_{{ svc_os }}_{{ svc_architecture }}.zip"
+
+svc_logfile_name: "{{ svc_name }}.log"
+svc_logfile_path: "{{ svc_log_path }}/{{ svc_logfile_name }}"
+
+
+

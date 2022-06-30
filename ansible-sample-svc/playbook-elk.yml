@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: Display all variables/facts known for a host
+      debug:
+        var: elasticsearch_master_ips
+      tags: debug_info
+    - name: get package facts
+      package_facts:
+        manager: "auto"
+
+
+- hosts: elasticsearch
+  roles:
+    - elasticsearch
+
+- hosts: kibana
+  roles:
+    - kibana
+
+- hosts: ous
+  roles:
+    - filebeat
+    - hello-svc

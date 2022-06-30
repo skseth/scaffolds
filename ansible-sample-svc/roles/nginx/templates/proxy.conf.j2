@@ -1,0 +1,9 @@
+server {
+    listen              80;
+    location /hello {
+        proxy_pass http://hello_service/?$query_string;
+    }
+}
+
+
+

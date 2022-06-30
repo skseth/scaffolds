@@ -1,0 +1,41 @@
+
+- import_role: 
+    name: rpminstall
+  vars:
+    package_name: filebeat
+    package_version: filebeat_version
+    package_rpmfile: "filebeat-{{ filebeat_version }}-x86_64.rpm"
+    package_forceinstall: filebeat_forceinstall
+
+- name: copy filebeat config file
+  template:
+    src: filebeat.yml
+    dest: /etc/filebeat/filebeat.yml
+
+# Add group
+- name: Add filebeat group
+  group:
+    name: "filebeat"
+    state: present
+
+# Add user
+- name: Add filebeat user
+  user:
+    name: "filebeat"
+    comment: "filebeat user"
+    group: "filebeat"
+    system: true
+
+- name: create input config directory
+  file:
+    dest: "/etc/filebeat/inputs"
+    state: directory
+    owner: "filebeat"
+    group: "filebeat"
+    mode: 0700
+
+- name: daemon reload systemd on installation
+  command: systemctl daemon-reload
+  become: true
+  notify: start filebeat
+

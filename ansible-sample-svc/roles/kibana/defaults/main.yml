@@ -1,0 +1,3 @@
+kibana_forceinstall: false
+kibana_hostip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+kibana_port: 5601

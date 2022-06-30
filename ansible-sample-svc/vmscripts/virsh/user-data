@@ -1,0 +1,34 @@
+#cloud-config
+# Customize as per your need. At least change username (vivek) and ssh-ed22519 
+# key with your actual public key
+ 
+# Hostname management
+preserve_hostname: False
+hostname: centos73
+fqdn: centos73.localdomain
+ 
+# Setup Users with ssh keys so that I can log in into new machine
+users:
+    - default
+    - name: samir
+      groups: ['wheel']
+      shell: /bin/bash
+      sudo: ALL=(ALL) NOPASSWD:ALL
+      ssh-authorized-keys:
+        - ssh-ed25519 AAAAB3NzaC1yc2EAAAADAQABAAABAQDA4vm9hjzCcKZBulvR3QrYqXNJ89A981XnHP2k0LaYU+O1mTS7oe98BGyCbVxVFQZ68FYiy9qoKhUaZOfHkUbii3vHuuCrSiODTqRvQZ/p0a065wGGxbuX8ekhbEylXzvWPJ87uyhj1jDzO11auNaRfgXsPEE0Fhxoqb9K7U1j4OFKlz1tdl48F9ZvS2hA1dFDQRen6IhRteKuvPXY5FfgJn87k0PIxQHknXGLJ33MBrupGIjhaAGcMdPGd/UMzi3yUhKvkiB6nsYvODRn7U+ijmnm3A4yLCzLcPURcHynE8OFfedE+IPaVgY2pUnv2/uRpdr3rc4Sww+LAmj3OriT samir's ssh key
+ 
+# Configure where output will go
+output:
+  all: ">> /var/log/cloud-init.log"
+ 
+# configure interaction with ssh server
+ssh_genkeytypes: ['ed25519', 'rsa']
+ 
+ 
+# set timezone for VM
+timezone: Asia/Kolkata
+ 
+# Remove cloud-init 
+runcmd:
+  - systemctl stop network && systemctl start network
+  - yum -y remove cloud-init

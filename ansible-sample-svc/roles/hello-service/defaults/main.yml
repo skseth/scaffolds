@@ -1,0 +1,15 @@
+# Anything defined here can be overidden in inventory 
+
+hello_version: "1.0.1"
+hello_build_number: "1"
+hello_force_install: false
+
+## Configuration parameters
+hello_db_user: "hello_user"
+hello_db_password: "{{ mysql_password | mandatory }}"
+
+
+### Environment File inputs
+hello_service_port: "{{ hello_service_default_port }}"
+
+

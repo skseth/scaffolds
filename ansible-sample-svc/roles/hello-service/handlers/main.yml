@@ -1,0 +1,5 @@
+- name: restart hello-service
+  service:
+    name: hello
+    state: restarted
+

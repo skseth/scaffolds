@@ -1,0 +1,6 @@
+---
+elasticsearch_cluster: els-cluster
+elasticsearch_hostip: "{{ ansible_host }}"
+elasticsearch_port: '9200'
+elasticsearch_protocol: 'http'
+elasticsearch_mininimum_master_nodes: 1

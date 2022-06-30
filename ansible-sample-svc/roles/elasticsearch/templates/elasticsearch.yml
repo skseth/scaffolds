@@ -1,0 +1,49 @@
+# ======================== Elasticsearch Configuration =========================
+cluster.name: aadhaar-es
+node.name: {{ elasticsearch_nodename }}
+
+#Need to change the below four proerties depending on the type of node that you want
+{% if elasticsearch_role == 'masterdata' %}
+node.master: true
+node.data: true
+node.ingest: true
+{% elif elasticsearch_role == 'coordinator' %}
+node.master: false
+node.data: false
+node.ingest: false
+{% endif %}
+cluster.remote.connect: false
+
+
+#node.attr.rack: r1
+# ----------------------------------- Paths ------------------------------------
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+# ----------------------------------- Memory -----------------------------------
+#bootstrap.memory_lock: true
+#
+# ---------------------------------- Network -----------------------------------
+network.host: {{ elasticsearch_hostip }}
+http.port: {{ elasticsearch_port }}
+# --------------------------------- Discovery ----------------------------------
+discovery.zen.ping.unicast.hosts: [ {{ elasticsearch_master_ips | join(', ') }} ]
+
+discovery.zen.minimum_master_nodes: {{ elasticsearch_mininimum_master_nodes }}
+
+# ---------------------------------- Gateway -----------------------------------
+#
+# Block initial recovery after a full cluster restart until N nodes are started:
+#
+#gateway.recover_after_nodes: 3
+#
+# For more information, consult the gateway module documentation.
+#
+# ---------------------------------- Various -----------------------------------
+
+action.destructive_requires_name: true
+
+# ------------------  cluster balancing --------------
+cluster.routing.allocation.cluster_concurrent_rebalance: 2
+cluster.routing.allocation.disk.threshold_enabled: true
+
+

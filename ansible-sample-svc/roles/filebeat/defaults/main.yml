@@ -1,0 +1,5 @@
+filebeat_forceinstall: false
+filebeat_create_sample: yes
+
+filebeat_config_path: "/etc/filebeat"
+filebeat_config_inputs_path: "{{ filebeat_config_path }}/inputs"

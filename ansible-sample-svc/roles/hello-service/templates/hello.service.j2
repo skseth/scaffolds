@@ -1,0 +1,24 @@
+[Unit]
+Description={{ hello_description }}
+After=syslog.target network.target
+
+[Service]
+User=helloapp
+Type=simple
+# We can define environment variables via a file
+# EnvironmentFile={{ hello_sysconfig_file }}
+# ... or directly, here
+Environment=HELLO_PORT={{ hello_service_port }}
+Environment=HELLO_DB_USER={{ hello_db_user }}
+Environment=HELLO_DB_PASSWORD={{ hello_db_password }}
+WorkingDirectory={{ hello_install_dir }}
+ExecStart={{ hello_executable }}
+Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier={{ hello_service_name }}
+SyslogLevel=debug
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,22 @@
+---
+- hosts: centos-1
+  become: true
+  vars_files:
+    - "{{ protected_storage }}/vault.yml"
+  pre_tasks:
+  - name: get package facts
+    package_facts:
+      manager: "auto"
+  tasks:
+  - include_role:
+      name: hello-service
+      tasks_from: uninstall
+    vars:
+      clean_install_dir: true
+      clean_config_dir: true
+      clean_log_dir: true
+      clean_service_files : true 
+      clean_firewall_rules: true
+      clean_users_groups: true
+
+

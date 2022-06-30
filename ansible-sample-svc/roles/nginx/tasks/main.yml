@@ -1,0 +1,44 @@
+
+- import_role: 
+    name: rpminstall
+  vars:
+    package_name: nginx
+    package_version: nginx_version
+    package_rpmfile: "nginx-{{ nginx_version }}.el7.ngx.x86_64.rpm"
+    package_forceinstall: nginx_forceinstall
+
+- name: Copy nginx.conf
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+
+- name: Ensures include dir exists
+  file: 
+    path: /etc/nginx/include 
+    state: directory
+
+- name: Copy proxy.conf
+  template:
+    src: proxy.conf.j2
+    dest: /etc/nginx/include/proxy.conf
+
+- name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+
+
+- name: open firewall port
+  firewalld: 
+    port: "80/tcp"
+    zone: public 
+    permanent: true 
+    state: enabled 
+    immediate: yes
+
+- name: daemon reload nginx on installation
+  command: systemctl daemon-reload
+  become: true
+  notify: restart nginx
+

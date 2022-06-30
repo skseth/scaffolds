@@ -1,0 +1,18 @@
+---
+ansible_user: devops
+protected_storage: ~/.ansible_protected
+mysql_password: "{{ vault_mysql_password | mandatory }}"
+
+# hello-service
+
+hello_service_port: 8001
+
+
+# Aggregate lists for configuration
+elasticsearch_master_endpoints: "{{ groups['elasticsearch'] | map('extract', hostvars) | selectattr('elasticsearch_role', 'equalto', 'masterdata') | mapelsurl | list }}"
+elasticsearch_master_ips:  "{{ groups['elasticsearch'] | map('extract', hostvars) | selectattr('elasticsearch_role', 'equalto', 'masterdata') | mapelsips | list }}"
+elasticsearch_coordinator_endpoints: "{{ groups['elasticsearch'] | map('extract', hostvars) | selectattr('elasticsearch_role', 'equalto', 'coordinator') | mapelsurl | list }}"
+
+
+
+

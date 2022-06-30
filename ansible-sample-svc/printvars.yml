@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - "{{ protected_storage }}/vault.yml"
+  tasks:
+  - name: Display all variables/facts known for a host
+    debug:
+      msg: 
+        - elasticsearch_hostip - {{ elasticsearch_hostip | default("UNDEFINED") }}
+        - elasticsearch_role - {{ elasticsearch_role | default("UNDEFINED")}}
+        - elasticsearch_coordinator_endpoints - {{ elasticsearch_coordinator_endpoints }}
+        - elasticsearch_master_ips - {{ elasticsearch_master_ips }}
+        - elasticsearch_coordinator_endpoints - {{ elasticsearch_coordinator_endpoints }}
+

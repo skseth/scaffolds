@@ -1,0 +1,92 @@
+---
+### Uninstall Existing Package
+- name: uninstall {{ hello_package_name }}
+  include_tasks: uninstall.yml
+
+### Users / Groups
+- name: Add group {{ hello_group }}
+  group:
+      name: "{{ hello_group }}"
+      state: present
+
+- name: Add user {{ hello_user }}
+  user:
+      name: "{{ hello_user }}"
+      comment: "user for service {{ hello_service_name }}"
+      shell: /bin/bash
+      home: "{{ hello_install_dir }}"
+      group: "{{ hello_group }}"
+      state: present
+
+### Package
+- name: Copy {{ hello_package_file }} to {{ hello_package_file_temp }} on server
+  copy:
+    src: "{{ hello_package_file }}"
+    dest: "{{ hello_package_file_temp }}"
+    checksum:
+
+- name: Install {{ hello_package_file_temp }}
+  yum:
+    name: "{{ hello_package_file_temp }}" 
+    state: present
+
+### Configuration files
+- name: Copy {{ hello_config_file }}
+  template:
+    src: "{{ hello_config_file_template }}"
+    dest: "{{ hello_config_file }}"
+    mode: 0644
+    owner: "{{ hello_user }}"
+    group: "{{ hello_group }}"
+
+### Log Directory
+- name: Create {{ hello_log_dir }}
+  file:
+    path: "{{ hello_log_dir }}"
+    state: directory
+    mode: 0755
+    owner: "{{ hello_user }}"
+    group: "{{ hello_group }}"
+
+# - name: setup {{ svc_name }} filebeat logs
+#   template:
+#     src: "{{ svc_filebeatinput_name }}"
+#     dest: "{{ svc_filebeatinput_path }}"
+
+### Service settings
+- name: Copy {{ hello_service_unit_file }}
+  template:
+    src: "{{ hello_service_unit_file_template }}"
+    dest: "{{ hello_service_unit_file }}"
+    mode: 0644
+    owner: root
+    group: root
+
+- name: Copy {{ hello_sysconfig_file }}
+  template:
+    src: "{{ hello_sysconfig_file_template }}"
+    dest: "{{ hello_sysconfig_file }}"
+    mode: 0644
+    owner: root
+    group: root
+
+- name: open firewall port
+  firewalld: 
+    port: "{{ hello_service_port }}/tcp"
+    zone: public 
+    permanent: true 
+    state: enabled 
+    immediate: yes
+
+- name: Enable and start {{ hello_service_name }} service 
+  systemd:
+    name: "{{ hello_service_name }}"
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
+
+### Clean up
+- name: Delete {{ hello_package_file_temp }} on server
+  file:
+    path: "{{ hello_package_file_temp }}"
+    state: absent
